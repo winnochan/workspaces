@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "archlinux"
   config.vm.hostname = "archlinux"
 
-  config.ssh.username = "winnochan"
+  # config.ssh.username = "winnochan"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
