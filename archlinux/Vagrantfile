@@ -16,7 +16,11 @@ Vagrant.configure("2") do |config|
   config.vm.define "archlinux"
   config.vm.hostname = "archlinux"
 
+  # config.ssh.insert_key = false
+  # config.ssh.private_key_path = ["~/.ssh/ecdsa", "~/.vagrant.d/insecure_private_key"]
+  # config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "~/.ssh/authorized_keys"
   # config.ssh.username = "winnochan"
+  # config.ssh.password = "winnochan"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -47,7 +51,21 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../home", "/home/vagrant", mount_options: ["dmode=777", "fmode=666"]
+  config.vm.synced_folder "./home", "/home/vagrant",
+                          id: "home",
+                          mount_options: ["dmode=777", "fmode=666"]
+
+  config.vm.synced_folder "../home/.zsh", "/home/vagrant/.zsh",
+                          id: "zsh",
+                          mount_options: ["dmode=777", "fmode=666"]
+
+  config.vm.synced_folder "../home/.emacs.d", "/home/vagrant/.emacs.d",
+                          id: "emacs",
+                          mount_options: ["dmode=777", "fmode=666"]
+
+  config.vm.synced_folder "../home/.spacemacs.d", "/home/vagrant/.spacemacs.d",
+                          id: "spacemacs",
+                          mount_options: ["dmode=777", "fmode=666"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -70,12 +88,5 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-sudo su -
-echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-# pacman -Syy --noconfirm
-# pacman -Syu --noconfirm
-# pacman -S --noconfirm vim emacs git
-exit
-  SHELL
+  config.vm.provision "shell", "path": "bootstrap.sh"
 end
