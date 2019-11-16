@@ -1,0 +1,13 @@
+[submodule "home/.zsh"]
+	path = home/.zsh
+	url = git@github.com:winnochan/.zsh.git
+[submodule "home/.ssh"]
+	path = home/.ssh
+	url = git@github.com:winnochan/.ssh.git
+[submodule "home/.spacemacs.d"]
+	path = home/.spacemacs.d
+	url = git@github.com:winnochan/.spacemacs.d.git
+[submodule "home/.emacs.d"]
+	path = home/.emacs.d
+	url = https://github.com/syl20bnr/spacemacs.git
+	branch = develop
